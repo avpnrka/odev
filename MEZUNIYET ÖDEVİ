@@ -1,0 +1,37 @@
+import React, { useState, useEffect } from 'react';
+
+const RealEstatePage = () => {
+    const [realEstates, setRealEstates] = useState([]);
+
+    useEffect(() => {
+        // Burada kentsel dönüşüm alanı bilgilerini API'den alarak realEstates state'ine atarız.
+        // Örnek olarak bir fetch veya Axios kullanılabilir.
+        fetch('YOUR_API_ENDPOINT')
+            .then(response => response.json())
+            .then(data => setRealEstates(data))
+            .catch(error => console.error('Error fetching real estates:', error));
+    }, []);
+
+    return (
+        <div>
+            <h1>Kentsel Dönüşüm Alanı Gayrimenkulleri</h1>
+            {realEstates.length > 0 ? (
+                <ul>
+                    {realEstates.map((estate, index) => (
+                        <li key={index}>
+                            <h2>{estate.title}</h2>
+                            <p><strong>Adres:</strong> {estate.address}</p>
+                            <p><strong>Fiyat:</strong> {estate.price}</p>
+                            <p><strong>Durum:</strong> {estate.status}</p>
+                            <p><strong>Satış/Kiralama:</strong> {estate.saleOrRent}</p>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>Yükleniyor...</p>
+            )}
+        </div>
+    );
+};
+
+export default RealEstatePage;
